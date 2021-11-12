@@ -2,7 +2,9 @@ const express=require('express');
 const morgan = require('morgan');
 const bodyParser=require('body-parser');
 const mongoose =require('mongoose');
+const user =require("./routes/user");
 const cors=require('cors');
+require("express-validator");
 require('dotenv').config();
 
 const app=express();
@@ -15,6 +17,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json({limit: '200mb',extended: true}));
 app.use(bodyParser.urlencoded({limit:'200mb',extended:true}));
 app.use(cors({origin:"*"}));
+app.use("/user",user);
 app.post('/storing-credential',(req,res)=>{
     console.log("req in storing credentiial route: ",req.body);
     res.send("hello");
