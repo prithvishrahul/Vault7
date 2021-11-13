@@ -63,3 +63,4 @@ function ajaxCall(type,path,data,callback)
         }
       });
 }
+

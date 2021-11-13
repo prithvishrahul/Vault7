@@ -1,0 +1,31 @@
+<!-- <div ng-controller="ScraperCtrl"> -->
+
+    <p>Vault7 password manager</p>
+
+    <div class="form-group">
+        <label for="name">Email</label>
+        <input type="text" class="form-control" id="email" placeholder="abc@example.com">
+        <label for="name">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="*******">
+        <label for="name">Type of credential</label>
+        <input type="text" class="form-control"  id="type" placeholder="Faceboob/Google/Github/University">
+    </div>
+    <button type="submit" id="store" class="btn btn-block btn-info"></button>
+    <!-- <a ng-click="initiateSearchKeywordsScraping(search_keywords)" class="btn btn-block btn-info">
+        Store credentials</a>
+    <br/> -->
+    <script src="Vault 7/js/app/popup.js"></script>
+
+    <script>
+             document.querySelector('#store').addEventListener('click',()=>{
+          var cipher=storing(document.getElementById('email').value,document.getElementById('password').value,document.getElementById("type").value);
+        });
+    </script>
+
+   <!--  <div class="row">
+        <div class="jumbotron text-muted text-center">
+            <p>Need Assistance?
+              <a target="_blank" href="https://myamazonhistory.com/contact">Contact Support Here</a>!</p>
+        </div>
+    </div> -->
+    
