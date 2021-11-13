@@ -27,13 +27,13 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
     $scope.login=function(formData)
     {
         console.log("Login Form Data:",formData);
-        chrome.runtime.sendMessage({type:"login",data: formData},
+        chrome.runtime.sendMessage({type:"login",data: {...formData,'ok':true}},
         function(response)
         {
             console.log("response from background is :",response);
             if(response.user)
             {
-                $scope.name=response.username;
+                $scope.name=response.user.username;
                 $state.go('welcome');
             }
         }
@@ -41,18 +41,23 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
     }
     $scope.signup=function(formData)
     {
-        console.log("Signup Form Data:",formData);
-        chrome.runtime.sendMessage({type:"signup",data: formData},
+        console.log("Signup1 Form Data:",formData);
+        chrome.runtime.sendMessage({type:"signup",data: {...formData,'ok':true}},
         function(response)
         {
             console.log("response from background is :",response);
-            if(response.token)
+            if(response)
             {
                 $state.go('signup',{});
-                $state.go('/login',{});
+                $state.go('login',{});
                 console.log("going to login");
             }
         }
         );
     }
 }])
+Vault7.controller("ScraperCtrl",['$scope','$state',function($scope,$state)
+{
+    console.log("ScraperCtrl initialized");
+}
+])

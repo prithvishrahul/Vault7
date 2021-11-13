@@ -9,21 +9,35 @@ chrome.runtime.onMessage.addListener(
         switch(message.type)
         {
             case "login":
-                console.log("login form data is: ",message.data);
+               /*  console.log("login form data is: ",message.data);
                 let loginusercred=message.data;
                 loginusercred.username= message.data.email.split('@')[0];
                 ajaxCall("POST","user/login",loginusercred,function(response){
                     console.log("response from the server",response);
                 })
                 return true;
+                break; */
+                console.log("login formdata",message.data);
+                let loginusercred=message.data;
+                loginusercred.username= message.data.email.split('@')[0];
+                /* sendResponse({token:true}); */
+              /*   ajaxCall("POST","user/signup",signupusercred,(response)=>{
+                    console.log("response from the server",response);
+                    sendResponse(response);
+                }) */
+                ajaxCall("POST","user/login",loginusercred,sendResponse);
+                return true;
                 break;
             case "signup":
                 console.log("signup formdata",message.data);
                 let signupusercred=message.data;
                 signupusercred.username= message.data.email.split('@')[0];
-                ajaxCall("POST","user/signup",signupusercred,function(response){
+                /* sendResponse({token:true}); */
+              /*   ajaxCall("POST","user/signup",signupusercred,(response)=>{
                     console.log("response from the server",response);
-                })
+                    sendResponse(response);
+                }) */
+                ajaxCall("POST","user/signup",signupusercred,sendResponse);
                 return true;
                 break;
             default:
@@ -38,7 +52,7 @@ function ajaxCall(type,path,data,callback)
         url: domain + path,
         data:data,
         type:type,
-        sucess:function(response){
+        success:function(response){
             console.log("response:",response);
             callback(response);
     
