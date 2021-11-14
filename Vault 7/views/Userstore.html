@@ -1,31 +1,27 @@
-<!-- <div ng-controller="ScraperCtrl"> -->
-
-    <p>Vault7 password manager</p>
-
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
     <div class="form-group">
-        <label for="name">Email</label>
-        <input type="text" class="form-control" id="email" placeholder="abc@example.com">
-        <label for="name">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="*******">
-        <label for="name">Type of credential</label>
-        <input type="text" class="form-control"  id="type" placeholder="Faceboob/Google/Github/University">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" ng-model="formData.email">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" ng-model="formData.password">
+        <br>
+        <label for="type">Type of credentials</label>
+        <input type="text" class="form-control" ng-model="formData.type">
+        <br>
     </div>
-    <button type="submit" id="store" class="btn btn-block btn-info"></button>
-    <!-- <a ng-click="initiateSearchKeywordsScraping(search_keywords)" class="btn btn-block btn-info">
-        Store credentials</a>
-    <br/> -->
-    <script src="Vault 7/js/app/popup.js"></script>
+<a ng-click="savecred(formData)" class="btn btn-block btn-info">Store credential</a>
+<a ng-click="goBack()" class="btn btn-block btn-info">Go to home page</a>
+<a ng-click="logout()" class="btn btn-block btn-info">Logout</a>
 
-    <script>
-             document.querySelector('#store').addEventListener('click',()=>{
-          var cipher=storing(document.getElementById('email').value,document.getElementById('password').value,document.getElementById("type").value);
-        });
-    </script>
-
-   <!--  <div class="row">
-        <div class="jumbotron text-muted text-center">
-            <p>Need Assistance?
-              <a target="_blank" href="https://myamazonhistory.com/contact">Contact Support Here</a>!</p>
-        </div>
-    </div> -->
-    
+<br>
+</body>
+</html>

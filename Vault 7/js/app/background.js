@@ -40,6 +40,30 @@ chrome.runtime.onMessage.addListener(
                 ajaxCall("POST","user/signup",signupusercred,sendResponse);
                 return true;
                 break;
+            case "savecred":
+                console.log("savecred formdata",message.data);
+                let usercredential=message.data;
+                usercredential.username= localStorage["username"];
+                /* sendResponse({token:true}); */
+                /*   ajaxCall("POST","user/signup",signupusercred,(response)=>{
+                    console.log("response from the server",response);
+                    sendResponse(response);
+                }) */
+                ajaxCall("POST","credential/store",usercredential,sendResponse);
+                return true;
+                break;
+            case "retrivecred":
+                console.log("retrived formdata",message.data);
+                let retriveusercredential=message.data;
+                retriveusercredential.username= localStorage["username"];
+                /* sendResponse({token:true}); */
+                /*   ajaxCall("POST","user/signup",signupusercred,(response)=>{
+                    console.log("response from the server",response);
+                    sendResponse(response);
+                }) */
+                ajaxCall("POST","credential/retrive",retriveusercredential,sendResponse);
+                return true;
+                break;
             default:
                 console.log("couldn't see matching case");
         }
