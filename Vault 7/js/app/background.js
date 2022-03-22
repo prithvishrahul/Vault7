@@ -6,6 +6,7 @@ let domain=dev ? "http://localhost:8001/" : "https://www.vault7.com";
 chrome.runtime.onMessage.addListener(
     function(message,sender,sendResponse)
     {
+        console.log("recieved message of type ",message.type);
         switch(message.type)
         {
             case "login":
@@ -28,6 +29,12 @@ chrome.runtime.onMessage.addListener(
                 ajaxCall("POST","user/login",loginusercred,sendResponse);
                 return true;
                 break;
+            case "totp":
+                     console.log("totp formdata",message.data);
+                     console.log(message.data.totp,localStorage['secret'])
+                     sendResponse(window.otplib.authenticator.check(message.data.totp,localStorage['secret']));
+                     return true;
+                     break;
             case "signup":
                 console.log("signup formdata",message.data);
                 let signupusercred=message.data;

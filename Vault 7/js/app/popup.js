@@ -22,6 +22,10 @@ $stateProvider
     url:'/userstore',
     templateUrl:'../views/Userstore.html'
 }) 
+.state('otpstate',{
+    url:'/otpstate',
+    templateUrl:'../views/2fa.html'
+})
 $urlRouterProvider.otherwise('login')  
 })
 
@@ -38,8 +42,28 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
             {
                 $scope.name=response.user.username;
                 localStorage['username']=response.user.username;
+                localStorage['secret']=response.user.asecret;
                 console.log(localStorage["username"]);
+                $state.go('otpstate');
+
+            }
+        }
+        );
+    }
+    $scope.otpstate=function(formData)
+    {
+        console.log("OTP Form Data:",formData);
+        chrome.runtime.sendMessage({type:"totp",data: {...formData,'ok':true}},
+        function(response)
+        {
+            console.log("response from background is :",response);
+            if(response)
+            {
                 $state.go('welcome');
+                
+            }
+            else{
+                alert("Wrong OTP");
             }
         }
         );
@@ -47,7 +71,9 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
     $scope.signup=function(formData)
     {
         console.log("Signup1 Form Data:",formData);
-        chrome.runtime.sendMessage({type:"signup",data: {...formData,'ok':true}},
+        let secret=window.otplib.authenticator.generateSecret();
+        alert(`please save the below code in your autheticator app \n ${secret}`);
+        chrome.runtime.sendMessage({type:"signup",data: {...formData,'ok':true,secret}},
         function(response)
         {
             console.log("response from background is :",response);
@@ -98,3 +124,21 @@ Vault7.controller("ScraperCtrl",['$scope','$state',function($scope,$state)
     }
 }
 ])
+function generateRandomString(length) {
+
+    const a = 65;
+    let str = "";
+    
+    for (let index = 0; index < length; index++) {
+        let randomNumber = parseInt(Math.random() * 100 %26)
+
+        if(Math.random() > 0.7) {
+            str += String.fromCharCode(a+randomNumber)        
+        } else {
+            str += parseInt(Math.random() * 10 %9)
+        }
+        
+    }
+
+    return str
+}
