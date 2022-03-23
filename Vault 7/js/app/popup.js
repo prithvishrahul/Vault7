@@ -47,6 +47,10 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
                 $state.go('otpstate');
 
             }
+            else
+            {
+                alert("Wrong Password");
+            }
         }
         );
     }
@@ -82,6 +86,10 @@ Vault7.controller("PopupCtrl",['$scope','$state',function($scope,$state){
                 $state.go('signup',{});
                 $state.go('login',{});
                 console.log("going to login");
+            }
+            else
+            {
+                alert("user already exist");
             }
         }
         );
